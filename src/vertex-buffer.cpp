@@ -40,66 +40,78 @@
 
 #include "vertex-buffer.h"
 
+using namespace ftgl;
+
 #define CASTED_SELF static_cast<vertex_buffer_t *>(self_)
 
-namespace freetypeglxx {
+namespace freetypeglxx
+{
 
-VertexBuffer::VertexBuffer(const std::string& format)
-    : self_(vertex_buffer_new(format.c_str())) {}
+	VertexBuffer::VertexBuffer(const std::string& format) : self_(vertex_buffer_new(format.c_str())) {}
 
-VertexBuffer::~VertexBuffer() {
-    vertex_buffer_delete(CASTED_SELF);
-}
+	VertexBuffer::~VertexBuffer() 
+	{
+		vertex_buffer_delete(CASTED_SELF);
+	}
 
-std::size_t VertexBuffer::size() const {
-    return vertex_buffer_size(CASTED_SELF);
-}
+	std::size_t VertexBuffer::size() const
+	{
+		return vertex_buffer_size(CASTED_SELF);
+	}
 
-const char* VertexBuffer::format() const {
-    return vertex_buffer_format(CASTED_SELF);
-}
+	const char* VertexBuffer::format() const
+	{
+		return vertex_buffer_format(CASTED_SELF);
+	}
 
-void VertexBuffer::Print() {
-    vertex_buffer_print(CASTED_SELF);
-}
+	void VertexBuffer::Print()
+	{
+		vertex_buffer_print(CASTED_SELF);
+	}
 
-void VertexBuffer::RenderSetup(GLenum mode) {
-    vertex_buffer_render_setup(CASTED_SELF, mode);
-}
+	void VertexBuffer::RenderSetup(GLenum mode) 
+	{
+		vertex_buffer_render_setup(CASTED_SELF, mode);
+	}
 
-void VertexBuffer::RenderFinish() {
-    vertex_buffer_render_finish(CASTED_SELF);
-}
+	void VertexBuffer::RenderFinish()
+	{
+		vertex_buffer_render_finish(CASTED_SELF);
+	}
 
-void VertexBuffer::Render(GLenum mode) {
-    vertex_buffer_render(CASTED_SELF, mode);
-}
+	void VertexBuffer::Render(GLenum mode)
+	{
+		vertex_buffer_render(CASTED_SELF, mode);
+	}
 
-void VertexBuffer::RenderItem(std::size_t index) {
-    vertex_buffer_render_item(CASTED_SELF, index);
-}
+	void VertexBuffer::RenderItem(std::size_t index)
+	{
+		vertex_buffer_render_item(CASTED_SELF, index);
+	}
 
-void VertexBuffer::Upload() {
-    vertex_buffer_upload(CASTED_SELF);
-}
+	void VertexBuffer::Upload()
+	{
+		vertex_buffer_upload(CASTED_SELF);
+	}
 
-void VertexBuffer::Clear() {
-    vertex_buffer_clear(CASTED_SELF);
-}
+	void VertexBuffer::Clear()
+	{
+		vertex_buffer_clear(CASTED_SELF);
+	}
 
-std::size_t VertexBuffer::PushBack(const void * vertices, std::size_t vcount,  
-                                   const GLuint * indices, std::size_t icount) {
-    return vertex_buffer_push_back(CASTED_SELF, vertices, vcount, indices, icount);
-}
+	std::size_t VertexBuffer::PushBack(const void * vertices, std::size_t vcount, const GLuint * indices, std::size_t icount)
+	{
+		return vertex_buffer_push_back(CASTED_SELF, vertices, vcount, indices, icount);
+	}
 
-std::size_t VertexBuffer::Insert(std::size_t index,
-                                 const void * vertices, std::size_t vcount,  
-                                 const GLuint * indices, std::size_t icount) {
-    return vertex_buffer_insert(CASTED_SELF, index, vertices, vcount, indices, icount);
-}
-                    
-void VertexBuffer::Erase(std::size_t index) {
-    vertex_buffer_erase(CASTED_SELF, index);
-}
+	std::size_t VertexBuffer::Insert(std::size_t index, const void * vertices, std::size_t vcount, const GLuint * indices, std::size_t icount)
+	{
+		return vertex_buffer_insert(CASTED_SELF, index, vertices, vcount, indices, icount);
+	}
+
+	void VertexBuffer::Erase(std::size_t index)
+	{
+		vertex_buffer_erase(CASTED_SELF, index);
+	}
 
 } // namespace freetypeglxx

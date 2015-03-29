@@ -41,52 +41,51 @@
 
 #include "texture-atlas.h"
 
-namespace freetypeglxx {
+using namespace ftgl;
 
-using std::size_t;
+namespace freetypeglxx
+{
 
-TextureAtlas::TextureAtlas(const size_t width, 
-                           const size_t height,
-                           const size_t depth)
-      :  self_(texture_atlas_new(width, height, depth)) {}
-      
+	using std::size_t;
 
-TextureAtlas::~TextureAtlas() { 
-    texture_atlas_delete(static_cast<texture_atlas_t*>(self_));
-}
+	TextureAtlas::TextureAtlas(const size_t width, const size_t height, const size_t depth) : self_(texture_atlas_new(width, height, depth)) {}
 
-void TextureAtlas::Upload() { 
-    texture_atlas_upload(static_cast<texture_atlas_t*>(self_));
-}
 
-ivec4 TextureAtlas::GetRegion(const size_t width,
-                              const size_t height) {
-    ::ivec4 result = texture_atlas_get_region(static_cast<texture_atlas_t*>(self_), width, height);
-    return ivec4(result.data[0], result.data[1], result.data[2], result.data[3]);
-}
+	TextureAtlas::~TextureAtlas()
+	{ 
+		texture_atlas_delete(static_cast<texture_atlas_t*>(self_));
+	}
 
-void TextureAtlas::SetRegion(const size_t x,
-                             const size_t y,
-                             const size_t width,
-                             const size_t height,
-                             const unsigned char *data,
-                             const size_t stride ) {
-    texture_atlas_set_region(static_cast<texture_atlas_t*>(self_), x, y, width, height, data, stride);
-}
+	void TextureAtlas::Upload()
+	{ 
+		texture_atlas_upload(static_cast<texture_atlas_t*>(self_));
+	}
 
-void TextureAtlas::Clear() {
-    texture_atlas_clear(static_cast<texture_atlas_t*>(self_));
-}
+	ivec4 TextureAtlas::GetRegion(const size_t width, const size_t height)
+	{
+		::ivec4 result = texture_atlas_get_region(static_cast<texture_atlas_t*>(self_), width, height);
+		return ivec4(result.data[0], result.data[1], result.data[2], result.data[3]);
+	}
 
-/// Width (in pixels) of the underlying texture
-size_t TextureAtlas::width() const { return static_cast<texture_atlas_t*>(self_)->width; }
+	void TextureAtlas::SetRegion(const size_t x, const size_t y, const size_t width, const size_t height, const unsigned char *data, const size_t stride )
+	{
+		texture_atlas_set_region(static_cast<texture_atlas_t*>(self_), x, y, width, height, data, stride);
+	}
 
-/// Height (in pixels) of the underlying texture
-size_t TextureAtlas::height() const { return static_cast<texture_atlas_t*>(self_)->height; }
+	void TextureAtlas::Clear()
+	{
+		texture_atlas_clear(static_cast<texture_atlas_t*>(self_));
+	}
 
-/// Depth (in bytes) of the underlying texture
-size_t TextureAtlas::depth() const { return static_cast<texture_atlas_t*>(self_)->depth; }
+	/// Width (in pixels) of the underlying texture
+	size_t TextureAtlas::width() const { return static_cast<texture_atlas_t*>(self_)->width; }
 
-unsigned int TextureAtlas::id() const { return static_cast<texture_atlas_t*>(self_)->id; }
+	/// Height (in pixels) of the underlying texture
+	size_t TextureAtlas::height() const { return static_cast<texture_atlas_t*>(self_)->height; }
+
+	/// Depth (in bytes) of the underlying texture
+	size_t TextureAtlas::depth() const { return static_cast<texture_atlas_t*>(self_)->depth; }
+
+	unsigned int TextureAtlas::id() const { return static_cast<texture_atlas_t*>(self_)->id; }
 
 } // namespace freetypeglxx

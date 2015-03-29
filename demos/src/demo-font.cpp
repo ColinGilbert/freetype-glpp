@@ -49,20 +49,12 @@
     #include <GL/glut.h>
 #endif
 
-using freetypeglxx::vec2;
-using freetypeglxx::vec4;
-using freetypeglxx::TextureFont;
-using freetypeglxx::TextureGlyph;
-using freetypeglxx::TextureAtlas;
-using freetypeglxx::VertexBuffer;
-
+using namespace ftgl;
 
 // ------------------------------------------------------- typedef & struct ---
-struct vertex_t {
-    vertex_t(double _x, double _y, double _z, 
-             double _s, double _t, 
-             double _r, double _g, double _b, double _a)
-             : x(_x), y(_y), z(_z), s(_s), t(_t), r(_r), g(_g), b(_b), a(_a) {}
+struct vertex_t
+{
+    vertex_t(double _x, double _y, double _z, double _s, double _t, double _r, double _g, double _b, double _a) : x(_x), y(_y), z(_z), s(_s), t(_t), r(_r), g(_g), b(_b), a(_a) {}
 
     float x, y, z;    // position
     float s, t;       // texture
@@ -72,8 +64,8 @@ struct vertex_t {
 
 // ------------------------------------------------------- global variables ---
 GLuint shader;
-VertexBuffer *buffer;
-mat4   model, view, projection;
+freetypeglxx::VertexBuffer *buffer;
+mat4 model, view, projection;
 
 
 // ---------------------------------------------------------------- display ---
@@ -120,8 +112,8 @@ void keyboard( unsigned char key, int x, int y )
 
 
 // --------------------------------------------------------------- add_text ---
-void add_text( VertexBuffer *buffer, TextureFont* font,
-               const wchar_t * text, vec4 * color, vec2 * pen )
+void add_text( freetypeglxx::VertexBuffer *buffer, freetypeglxx::TextureFont* font,
+               const wchar_t * text, freetypeglxx::vec4 * color, freetypeglxx::vec2 * pen )
 {
     size_t i;
     float r = color->red, g = color->green, b = color->blue, a = color->alpha;
@@ -130,7 +122,7 @@ void add_text( VertexBuffer *buffer, TextureFont* font,
     memcpy(indices.data(), indices_raw, sizeof(indices_raw));
     for( i=0; i<wcslen(text); ++i )
     {
-        TextureGlyph* glyph = font->GetGlyph(text[i]);
+        freetypeglxx::TextureGlyph* glyph = font->GetGlyph(text[i]);
         if( glyph != NULL )
         {
             int kerning = 0;
@@ -175,14 +167,14 @@ int main( int argc, char **argv )
     }
     fprintf( stderr, "Using GLEW %s\n", glewGetString(GLEW_VERSION) );
 
-    TextureAtlas *atlas = new TextureAtlas( 512, 512, 1 );
+    freetypeglxx::TextureAtlas *atlas = new freetypeglxx::TextureAtlas( 512, 512, 1 );
     const char * filename = "fonts/Vera.ttf";
     const wchar_t *text = L"A Quick Brown Fox Jumps Over The Lazy Dog 0123456789";
-    buffer = new VertexBuffer( "vertex:3f,tex_coord:2f,color:4f" );
-    vec2 pen = {5,400};
-    vec4 black = {0,0,0,1};
+    buffer = new freetypeglxx::VertexBuffer( "vertex:3f,tex_coord:2f,color:4f" );
+    freetypeglxx::vec2 pen = {5,400};
+    freetypeglxx::vec4 black = {0,0,0,1};
     for(size_t i = 7; i < 27; ++i) {
-        TextureFont *font = new TextureFont( atlas, filename, i );
+        freetypeglxx::TextureFont *font = new freetypeglxx::TextureFont( atlas, filename, i );
         pen.x = 5;
         pen.y -= font->height();
         font->LoadGlyphs( text );
